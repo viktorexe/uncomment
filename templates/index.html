@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, orientation=portrait">
+
+    <title>Code Comment Remover</title>
+    
+    <!-- Fonts and Styles -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🧹</text></svg>">
+</head>
+<body>
+    <!-- Mobile Warning -->
+    <div class="mobile-warning">
+        <div class="warning-content">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+            </svg>
+            <h2>Desktop View Recommended</h2>
+            <p>Please use a desktop device for the best experience.</p>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Code Comment Remover</h1>
+            <p class="subtitle">Clean and optimize your code by removing comments while preserving functionality</p>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <form id="codeForm">
+                <!-- Language Selection -->
+                <div class="language-select">
+                    <select id="language" name="language" required>
+                        <option value="" disabled selected>Select Language</option>
+                        <option value="python">Python</option>
+                        <option value="javascript">JavaScript</option>
+                        <option value="java">Java</option>
+                        <option value="cpp">C++</option>
+                        <option value="c">C</option>
+                        <option value="csharp">C#</option>
+                        <option value="html">HTML</option>
+                        <option value="css">CSS</option>
+                    </select>
+                </div>
+
+                <!-- Code Input Area -->
+                <div class="code-container">
+                    <div class="editor-wrapper">
+                        <textarea 
+                            id="codeInput" 
+                            name="code" 
+                            placeholder="Paste your code here or upload a file..." 
+                            required
+                            spellcheck="false"
+                        ></textarea>
+                    </div>
+                    
+                    <!-- Action Buttons -->
+                    <div class="actions">
+                        <label for="fileInput" class="btn btn-secondary">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                <polyline points="17 8 12 3 7 8"/>
+                                <line x1="12" y1="3" x2="12" y2="15"/>
+                            </svg>
+                            Upload File
+                        </label>
+                        <input type="file" id="fileInput" hidden>
+                        
+                        <button type="submit" class="btn btn-primary">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                <polyline points="22 4 12 14.01 9 11.01"/>
+                            </svg>
+                            Remove Comments
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Supported Languages Section -->
+        <div class="supported-languages">
+            <h3>Supported Languages</h3>
+            <div class="language-grid">
+                <div class="language-item">
+                    <span class="lang-icon">🐍</span>
+                    <span class="lang-name">Python</span>
+                </div>
+                <div class="language-item">
+                    <span class="lang-icon">📜</span>
+                    <span class="lang-name">JavaScript</span>
+                </div>
+                <div class="language-item">
+                    <span class="lang-icon">☕</span>
+                    <span class="lang-name">Java</span>
+                </div>
+                <div class="language-item">
+                    <span class="lang-icon">⚡</span>
+                    <span class="lang-name">C++</span>
+                </div>
+                <div class="language-item">
+                    <span class="lang-icon">🔧</span>
+                    <span class="lang-name">C</span>
+                </div>
+                <div class="language-item">
+                    <span class="lang-icon">🎯</span>
+                    <span class="lang-name">C#</span>
+                </div>
+                <div class="language-item">
+                    <span class="lang-icon">🌐</span>
+                    <span class="lang-name">HTML</span>
+                </div>
+                <div class="language-item">
+                    <span class="lang-icon">🎨</span>
+                    <span class="lang-name">CSS</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <p>Made with ❤️ by Vansh Sharma</p>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-java.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-cpp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-c.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-csharp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-markup.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-css.min.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

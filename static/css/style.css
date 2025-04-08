@@ -1,0 +1,316 @@
+:root {
+    --primary: #0070f3;
+    --secondary: #7928ca;
+    --background: #000;
+    --foreground: #fff;
+    --accents-1: #111;
+    --accents-2: #333;
+    --accents-3: #444;
+    --accents-4: #666;
+    --accents-5: #888;
+    --radius: 8px;
+    --font-sans: 'Inter', -apple-system, sans-serif;
+    --font-mono: 'Fira Code', monospace;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-sans);
+    background: var(--background);
+    color: var(--foreground);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* Header */
+.header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 1rem;
+}
+
+.subtitle {
+    color: var(--accents-5);
+    font-size: 1.1rem;
+}
+
+/* Main Content */
+.main-content {
+    background: var(--accents-1);
+    border: 1px solid var(--accents-2);
+    border-radius: var(--radius);
+    padding: 2rem;
+    margin-bottom: 3rem;
+}
+
+/* Language Select */
+.language-select {
+    margin-bottom: 1.5rem;
+}
+
+.language-select select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: var(--background);
+    border: 1px solid var(--accents-3);
+    border-radius: var(--radius);
+    color: var(--foreground);
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.language-select select option {
+    background: var(--background);
+    color: var(--foreground);
+    padding: 0.5rem;
+}
+
+.language-select select:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+/* Code Editor */
+.code-container {
+    margin-bottom: 1.5rem;
+}
+
+#codeInput {
+    width: 100%;
+    min-height: 300px;
+    max-height: 500px;
+    padding: 1rem;
+    background: var(--background);
+    border: 1px solid var(--accents-3);
+    border-radius: var(--radius);
+    color: var(--foreground);
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    resize: vertical;
+}
+
+/* Syntax Highlighting */
+pre {
+    margin: 0 !important;
+    padding: 1rem !important;
+    background: var(--background) !important;
+    border: 1px solid var(--accents-3) !important;
+    border-radius: var(--radius);
+    overflow: auto;
+}
+
+code {
+    font-family: var(--font-mono) !important;
+    font-size: 0.9rem !important;
+    line-height: 1.5 !important;
+}
+
+/* Syntax Colors */
+.token.comment { color: #6a9955 !important; }
+.token.string { color: #ce9178 !important; }
+.token.number { color: #b5cea8 !important; }
+.token.keyword { color: #569cd6 !important; }
+.token.function { color: #dcdcaa !important; }
+.token.class-name { color: #4ec9b0 !important; }
+.token.operator { color: #d4d4d4 !important; }
+.token.punctuation { color: #d4d4d4 !important; }
+
+/* Buttons */
+.actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius);
+    font-weight: 500;
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: opacity 0.2s;
+}
+
+.btn:hover {
+    opacity: 0.8;
+}
+
+.btn-secondary {
+    background: var(--accents-2);
+    color: var(--foreground);
+    border: 1px solid var(--accents-3);
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+    border: none;
+    flex: 1;
+}
+
+/* File Input */
+input[type="file"] {
+    display: none;
+}
+
+/* Supported Languages */
+.supported-languages {
+    background: var(--accents-1);
+    border: 1px solid var(--accents-2);
+    border-radius: var(--radius);
+    padding: 2rem;
+    margin-top: 3rem;
+}
+
+.supported-languages h3 {
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    color: var(--foreground);
+}
+
+.language-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 1rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.language-item {
+    text-align: center;
+    padding: 1rem;
+    background: var(--background);
+    border: 1px solid var(--accents-3);
+    border-radius: var(--radius);
+}
+
+.lang-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.lang-name {
+    font-size: 0.9rem;
+    color: var(--accents-5);
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 2rem 0;
+    color: var(--accents-5);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container { padding: 1rem; }
+    h1 { font-size: 2rem; }
+    .actions { flex-direction: column; }
+    .btn { width: 100%; }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--accents-1);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--accents-3);
+    border-radius: 4px;
+}
+/* Mobile Warning - Only show on mobile devices */
+.mobile-warning {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 1000;
+    overflow: hidden; /* Prevent scrolling when warning is shown */
+}
+
+.warning-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 400px;
+    padding: 2rem;
+    background: var(--accents-1);
+    border: 1px solid var(--accents-2);
+    border-radius: var(--radius);
+    text-align: center;
+}
+
+.warning-content svg {
+    color: var(--warning);
+    margin-bottom: 1.5rem;
+}
+
+.warning-content h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--foreground);
+}
+
+.warning-content p {
+    color: var(--accents-5);
+}
+
+/* Prevent unwanted rotations and movements */
+html, body {
+    height: 100%;
+    overflow-x: hidden;
+    position: relative;
+    touch-action: pan-y pinch-zoom; /* Only allow vertical scrolling and pinch zoom */
+}
+
+/* Media query for mobile devices */
+@media (max-width: 768px) {
+    .mobile-warning {
+        display: block; /* Show warning on mobile */
+    }
+    
+    body {
+        overflow: hidden; /* Prevent background scrolling when warning is shown */
+    }
+}
+
+/* Media query for device orientation */
+@media screen and (orientation: landscape) and (max-height: 500px) {
+    .mobile-warning {
+        display: block; /* Show warning in landscape on small height devices */
+    }
+}
