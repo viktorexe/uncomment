@@ -4,9 +4,9 @@ from typing import List, Tuple
 class RubyParser(BaseParser):
     def get_string_patterns(self) -> List[str]:
         return [
-            r'"(?:[^"\\]|\\.)*"',  # Double quoted strings
-            r"'(?:[^'\\]|\\.)*'",  # Single quoted strings
-            r'%[qQwWiIrsx]?[^\w\s].*?[^\w\s]', # Percent strings
+            r'"(?:[^"\\]|\\.)*"',
+            r"'(?:[^'\\]|\\.)*'",
+            r'%[qQwWiIrsx]?[^\w\s].*?[^\w\s]',
         ]
     
     def get_comment_patterns(self) -> List[str]:

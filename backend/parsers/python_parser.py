@@ -27,11 +27,11 @@ class PythonParser(BaseParser):
         if not line.strip():
             return line, 0
         
-        # Skip lines that are clearly not comments
+
         if '#' not in line:
             return line, 0
         
-        # Track string state with escape handling
+
         in_string = False
         string_char = None
         escape_next = False
@@ -40,7 +40,7 @@ class PythonParser(BaseParser):
         while i < len(line):
             char = line[i]
             
-            # Handle escape sequences
+
             if escape_next:
                 escape_next = False
                 i += 1
@@ -51,23 +51,23 @@ class PythonParser(BaseParser):
                 i += 1
                 continue
             
-            # Handle string literals
+
             if not in_string and char in ['"', "'"]:
-                # Check for triple quotes
+
                 if i + 2 < len(line) and line[i:i+3] == char * 3:
-                    # Find end of triple quote
+
                     end_pos = line.find(char * 3, i + 3)
                     if end_pos != -1:
                         i = end_pos + 3
                         continue
                     else:
-                        # Unclosed triple quote, treat as string start
+
                         in_string = True
                         string_char = char
                         i += 3
                         continue
                 
-                # Check for raw strings
+
                 if i > 0 and line[i-1].lower() in ['r', 'f', 'b', 'u']:
                     in_string = True
                     string_char = char
@@ -82,9 +82,9 @@ class PythonParser(BaseParser):
                 in_string = False
                 string_char = None
             
-            # Found potential comment
+
             elif not in_string and char == '#':
-                # This is a real comment - remove everything from # onwards
+
                 return line[:i].rstrip(), 1
             
             i += 1

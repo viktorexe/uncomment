@@ -36,7 +36,6 @@ class JavaParser(BaseParser):
                         in_string = False
                         string_char = None
                     elif not in_string and line[i:i+2] == '//':
-                        # Enhanced URL detection for Java
                         if i >= 4 and line[i-4:i+2] in ['http://', 'tps://']:
                             continue
                         if i > 0 and line[i-1] == ':' and i >= 5 and 'http' in line[i-5:i]:

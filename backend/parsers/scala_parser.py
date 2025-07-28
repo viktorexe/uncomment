@@ -4,9 +4,9 @@ from typing import List, Tuple
 class ScalaParser(BaseParser):
     def get_string_patterns(self) -> List[str]:
         return [
-            r'"(?:[^"\\]|\\.)*"',  # Double quoted strings
-            r"'(?:[^'\\]|\\.)*'",  # Single quoted chars
-            r'""".*?"""',          # Multi-line strings
+            r'"(?:[^"\\]|\\.)*"',
+            r"'(?:[^'\\]|\\.)*'",
+            r'""".*?"""',
         ]
     
     def get_comment_patterns(self) -> List[str]:

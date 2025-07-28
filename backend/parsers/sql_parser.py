@@ -4,8 +4,8 @@ from typing import List, Tuple
 class SqlParser(BaseParser):
     def get_string_patterns(self) -> List[str]:
         return [
-            r"'(?:[^'\\]|\\.)*'",  # Single quoted strings
-            r'"(?:[^"\\]|\\.)*"',  # Double quoted identifiers
+            r"'(?:[^'\\]|\\.)*'",
+            r'"(?:[^"\\]|\\.)*"',
         ]
     
     def get_comment_patterns(self) -> List[str]:

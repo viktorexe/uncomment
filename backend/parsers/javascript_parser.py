@@ -22,7 +22,7 @@ class JavaScriptParser(BaseParser):
                     cleaned_lines.append('')
                     continue
             
-            # Remove single line comments with error handling
+
             if '//' in line:
                 in_string = False
                 string_char = None
@@ -44,7 +44,7 @@ class JavaScriptParser(BaseParser):
                         in_string = False
                         string_char = None
                     elif not in_string and line[i:i+2] == '//':
-                        # Enhanced URL detection
+
                         if i >= 4 and line[i-4:i+2] in ['http://', 'tps://']:
                             continue
                         if i > 0 and line[i-1] == ':' and i >= 5 and 'http' in line[i-5:i]:
@@ -53,7 +53,7 @@ class JavaScriptParser(BaseParser):
                         comments_removed += 1
                         break
             
-            # Handle multiline comments
+
             while '/*' in line and not in_multiline:
                 in_string = False
                 found_comment = False

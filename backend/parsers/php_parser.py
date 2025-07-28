@@ -4,9 +4,9 @@ from typing import List, Tuple
 class PhpParser(BaseParser):
     def get_string_patterns(self) -> List[str]:
         return [
-            r'"(?:[^"\\]|\\.)*"',  # Double quoted strings
-            r"'(?:[^'\\]|\\.)*'",  # Single quoted strings
-            r'<<<["\']?(\w+)["\']?.*?\n\1;', # Heredoc/Nowdoc
+            r'"(?:[^"\\]|\\.)*"',
+            r"'(?:[^'\\]|\\.)*'",
+            r'<<<["\']?(\w+)["\']?.*?\n\1;',
         ]
     
     def get_comment_patterns(self) -> List[str]:
