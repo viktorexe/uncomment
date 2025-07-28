@@ -15,6 +15,12 @@ class UnCommentApp {
         this.fileInput = document.getElementById('fileInput');
         this.stats = document.getElementById('stats');
         this.loadingOverlay = document.getElementById('loadingOverlay');
+        this.modalOverlay = document.getElementById('modalOverlay');
+        this.modalTitle = document.getElementById('modalTitle');
+        this.modalContent = document.getElementById('modalContent');
+        this.modalClose = document.getElementById('modalClose');
+        this.privacyBtn = document.getElementById('privacyBtn');
+        this.tosBtn = document.getElementById('tosBtn');
     }
 
     bindEvents() {
@@ -22,6 +28,12 @@ class UnCommentApp {
         this.clearBtn.addEventListener('click', () => this.clearCode());
         this.copyBtn.addEventListener('click', () => this.copyResult());
         this.fileInput.addEventListener('change', (e) => this.handleFileUpload(e));
+        this.modalClose.addEventListener('click', () => this.closeModal());
+        this.privacyBtn.addEventListener('click', () => this.showPrivacyPolicy());
+        this.tosBtn.addEventListener('click', () => this.showTOS());
+        this.modalOverlay.addEventListener('click', (e) => {
+            if (e.target === this.modalOverlay) this.closeModal();
+        });
         
 
         this.inputCode.addEventListener('keydown', (e) => {
@@ -242,13 +254,60 @@ class UnCommentApp {
         this.loadingOverlay.classList.toggle('active', show);
     }
 
-    showNotification(message, type = 'info') {
+    showPrivacyPolicy() {
+        this.modalTitle.textContent = 'Privacy Policy';
+        this.modalContent.innerHTML = `
+            <h4>Information We Collect</h4>
+            <p>UnComment processes your code locally in your browser. We do not store, transmit, or collect any of your code or personal data.</p>
+            
+            <h4>Data Processing</h4>
+            <p>All code processing happens client-side. Your code never leaves your device unless you explicitly choose to share it.</p>
+            
+            <h4>Cookies and Tracking</h4>
+            <p>We do not use cookies, analytics, or any tracking mechanisms. Your privacy is fully protected.</p>
+            
+            <h4>Third-Party Services</h4>
+            <p>This application does not integrate with any third-party services that could access your data.</p>
+            
+            <h4>Contact</h4>
+            <p>For privacy concerns, contact us at: github.com/viktorexe</p>
+        `;
+        this.modalOverlay.classList.add('active');
+    }
 
+    showTOS() {
+        this.modalTitle.textContent = 'Terms of Service';
+        this.modalContent.innerHTML = `
+            <h4>Acceptance of Terms</h4>
+            <p>By using UnComment, you agree to these terms of service.</p>
+            
+            <h4>Use License</h4>
+            <p>This is free software provided "as is" without warranty of any kind.</p>
+            
+            <h4>Limitations</h4>
+            <p>We are not liable for any damages resulting from the use of this software.</p>
+            
+            <h4>Code Processing</h4>
+            <p>You are responsible for the code you process. Ensure you have rights to modify the code.</p>
+            
+            <h4>Service Availability</h4>
+            <p>We do not guarantee continuous availability of this service.</p>
+            
+            <h4>Changes to Terms</h4>
+            <p>These terms may be updated without notice. Continued use constitutes acceptance.</p>
+        `;
+        this.modalOverlay.classList.add('active');
+    }
+
+    closeModal() {
+        this.modalOverlay.classList.remove('active');
+    }
+
+    showNotification(message, type = 'info') {
         const notification = document.createElement('div');
         notification.className = `notification notification-${type}`;
         notification.textContent = message;
         
-
         Object.assign(notification.style, {
             position: 'fixed',
             top: '20px',
@@ -263,7 +322,6 @@ class UnCommentApp {
             maxWidth: '300px'
         });
 
-
         const colors = {
             success: '#059669',
             error: '#dc2626',
@@ -274,11 +332,9 @@ class UnCommentApp {
 
         document.body.appendChild(notification);
 
-
         setTimeout(() => {
             notification.style.transform = 'translateX(0)';
         }, 100);
-
 
         setTimeout(() => {
             notification.style.transform = 'translateX(100%)';

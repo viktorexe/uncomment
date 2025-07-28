@@ -90,13 +90,31 @@
         </div>
 
         <footer class="footer">
-            <p>&copy; 2024 UnComment - Advanced Code Processing Tool</p>
+            <div class="footer-left">
+                <p>&copy; July 2025 UnComment - Advanced Code Processing Tool</p>
+                <div class="footer-links">
+                    <button id="privacyBtn" class="footer-link">Privacy Policy</button>
+                    <button id="tosBtn" class="footer-link">Terms of Service</button>
+                </div>
+            </div>
         </footer>
     </div>
 
     <div id="loadingOverlay" class="loading-overlay">
         <div class="spinner"></div>
         <p>Processing your code...</p>
+    </div>
+
+    <div id="modalOverlay" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="modalTitle">Title</h3>
+                <button id="modalClose" class="modal-close">&times;</button>
+            </div>
+            <div class="modal-content" id="modalContent">
+                Content goes here
+            </div>
+        </div>
     </div>
 
     <script src="/static/js/app.js"></script>
