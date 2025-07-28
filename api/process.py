@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 import sys
 import os
 
-# Add the backend directory to Python path
+
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'backend'))
 
 from backend.comment_processor import CommentProcessor
@@ -10,7 +10,7 @@ from backend.language_detector import LanguageDetector
 
 app = Flask(__name__)
 
-# Initialize processors
+
 comment_processor = CommentProcessor()
 language_detector = LanguageDetector()
 
@@ -25,11 +25,11 @@ def handler(request):
             if not code:
                 return jsonify({'error': 'No code provided'}), 400
             
-            # Auto-detect language if not provided
+
             if not language:
                 language = language_detector.detect(code)
             
-            # Process the code
+
             result = comment_processor.remove_comments(code, language)
             
             return jsonify({

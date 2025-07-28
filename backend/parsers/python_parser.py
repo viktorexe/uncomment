@@ -84,21 +84,7 @@ class PythonParser(BaseParser):
             
             # Found potential comment
             elif not in_string and char == '#':
-                # Additional checks to avoid false positives
-                # Skip if it's part of a hex color or similar pattern
-                if i > 0 and line[i-1].isalnum():
-                    i += 1
-                    continue
-                
-                # Skip if followed by common non-comment patterns
-                remaining = line[i+1:].strip()
-                if remaining and remaining[0].isdigit():
-                    # Could be hex color like #FF0000
-                    if all(c in '0123456789ABCDEFabcdef' for c in remaining[:6]):
-                        i += 1
-                        continue
-                
-                # This is a real comment
+                # This is a real comment - remove everything from # onwards
                 return line[:i].rstrip(), 1
             
             i += 1

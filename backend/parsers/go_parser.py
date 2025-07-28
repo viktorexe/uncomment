@@ -4,9 +4,9 @@ from typing import List, Tuple
 class GoParser(BaseParser):
     def get_string_patterns(self) -> List[str]:
         return [
-            r'"(?:[^"\\]|\\.)*"',  # Double quoted strings
-            r"'(?:[^'\\]|\\.)*'",  # Single quoted runes
-            r'`[^`]*`',            # Raw string literals
+            r'"(?:[^"\\]|\\.)*"',  
+            r"'(?:[^'\\]|\\.)*'",  
+            r'`[^`]*`',            
         ]
     
     def get_comment_patterns(self) -> List[str]:

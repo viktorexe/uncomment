@@ -5,12 +5,12 @@ class CSharpParser(BaseParser):
     def process(self, code: str):
         if not code:
             return {'cleaned_code': '', 'comments_removed': 0}
-        
+
         lines = code.split('\n')
         cleaned_lines = []
         comments_removed = 0
         in_multiline = False
-        
+
         for line in lines:
             if in_multiline:
                 if '*/' in line:
@@ -21,17 +21,17 @@ class CSharpParser(BaseParser):
                 else:
                     cleaned_lines.append('')
                     continue
-            
-            # Remove single line comments
+
+
             if '//' in line:
                 in_string = False
                 string_char = None
                 verbatim = False
-                
+
                 i = 0
                 while i < len(line):
                     char = line[i]
-                    
+
                     if not in_string and char == '@' and i + 1 < len(line) and line[i + 1] == '"':
                         verbatim = True
                         in_string = True
@@ -43,7 +43,7 @@ class CSharpParser(BaseParser):
                         string_char = char
                     elif in_string and char == string_char:
                         if verbatim and i + 1 < len(line) and line[i + 1] == '"':
-                            i += 1  # Skip escaped quote in verbatim string
+                            i += 1  
                         else:
                             in_string = False
                             string_char = None
@@ -55,10 +55,9 @@ class CSharpParser(BaseParser):
                         line = line[:i].rstrip()
                         comments_removed += 1
                         break
-                    
+
                     i += 1
-            
-            # Handle multiline comments
+
             if '/*' in line and not in_multiline:
                 in_string = False
                 for i in range(len(line) - 1):
@@ -75,19 +74,19 @@ class CSharpParser(BaseParser):
                             in_multiline = True
                             comments_removed += 1
                         break
-            
+
             cleaned_lines.append(line)
-        
+
         return {
             'cleaned_code': '\n'.join(cleaned_lines),
             'comments_removed': comments_removed
         }
-    
+
     def get_string_patterns(self) -> List[str]:
         return []
-    
+
     def get_comment_patterns(self) -> List[str]:
         return []
-    
+
     def get_multiline_comment_patterns(self) -> List[Tuple[str, str]]:
         return []

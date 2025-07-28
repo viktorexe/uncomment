@@ -4,8 +4,8 @@ from typing import List, Tuple
 class CssParser(BaseParser):
     def get_string_patterns(self) -> List[str]:
         return [
-            r'"(?:[^"\\]|\\.)*"',  # Double quoted strings
-            r"'(?:[^'\\]|\\.)*'",  # Single quoted strings
+            r'"(?:[^"\\]|\\.)*"',  
+            r"'(?:[^'\\]|\\.)*'",  
         ]
     
     def get_comment_patterns(self) -> List[str]:

@@ -1,6 +1,5 @@
 import re
 from typing import Dict, List
-
 class LanguageDetector:
     def __init__(self):
         self.patterns = {
@@ -124,27 +123,19 @@ class LanguageDetector:
                 r'/\*.*?\*/'
             ]
         }
-    
     def detect(self, code: str) -> str:
         """Advanced language detection using pattern matching"""
         if not code:
             return 'unknown'
-        
         scores = {}
         code_lower = code.lower()
-        
         for language, patterns in self.patterns.items():
             score = 0
             for pattern in patterns:
                 matches = len(re.findall(pattern, code, re.MULTILINE | re.DOTALL | re.IGNORECASE))
                 score += matches
-            
-            # Normalize score by pattern count
             scores[language] = score / len(patterns) if patterns else 0
-        
-        # Return language with highest score
         if scores:
             detected = max(scores, key=scores.get)
-            return detected if scores[detected] > 0 else 'unknown'
-        
+            return detected if scores[detected] > 0 else 'unknown' 
         return 'unknown'
