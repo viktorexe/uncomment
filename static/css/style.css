@@ -212,8 +212,31 @@ body {
     position: relative;
 }
 
+.github-links {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 12px;
+}
+
+.github-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: all 0.15s ease;
+}
+
+.github-links a:hover {
+    color: var(--text-primary);
+    background: var(--bg-secondary);
+}
+
 .footer::after {
-    content: 'Made by viktorexe';
+    content: 'Made with ❤️ by viktorexe';
     position: absolute;
     right: 0;
     top: 50%;
