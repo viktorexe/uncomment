@@ -25,27 +25,23 @@ class CommentProcessor:
         }
     
     def remove_comments(self, code: str, language: str) -> Dict[str, Any]:
-        """Advanced comment removal with preservation of string literals and edge cases"""
+        """Advanced comment removal"""
         if not code or not language:
-            return {'code': code, 'stats': {'removed': 0, 'lines_processed': 0}}
+            return {'code': code, 'stats': {'removed': 0}}
         
         language = language.lower()
         parser = self.parsers.get(language)
         
         if not parser:
-            return {'code': code, 'stats': {'removed': 0, 'lines_processed': len(code.split('\n'))}}
+            return {'code': code, 'stats': {'removed': 0}}
         
-        # Process with advanced parsing
+        # Process with parser
         result = parser.process(code)
         
         return {
             'code': result['cleaned_code'],
             'stats': {
-                'removed': result['comments_removed'],
-                'lines_processed': len(code.split('\n')),
-                'original_size': len(code),
-                'cleaned_size': len(result['cleaned_code']),
-                'compression_ratio': round((1 - len(result['cleaned_code']) / len(code)) * 100, 2) if code else 0
+                'removed': result['comments_removed']
             }
         }
     

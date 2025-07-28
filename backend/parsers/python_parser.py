@@ -1,24 +1,115 @@
 from .base_parser import BaseParser
 from typing import List, Tuple
+import re
 
 class PythonParser(BaseParser):
+    def process(self, code: str):
+        """Optimized Python comment removal"""
+        if not code:
+            return {'cleaned_code': '', 'comments_removed': 0}
+        
+        lines = code.split('\n')
+        cleaned_lines = []
+        comments_removed = 0
+        
+        for line in lines:
+            cleaned_line, removed = self._process_line(line)
+            cleaned_lines.append(cleaned_line)
+            comments_removed += removed
+        
+        return {
+            'cleaned_code': '\n'.join(cleaned_lines),
+            'comments_removed': comments_removed
+        }
+    
+    def _process_line(self, line: str):
+        """Process single line for Python comments with maximum error handling"""
+        if not line.strip():
+            return line, 0
+        
+        # Skip lines that are clearly not comments
+        if '#' not in line:
+            return line, 0
+        
+        # Track string state with escape handling
+        in_string = False
+        string_char = None
+        escape_next = False
+        i = 0
+        
+        while i < len(line):
+            char = line[i]
+            
+            # Handle escape sequences
+            if escape_next:
+                escape_next = False
+                i += 1
+                continue
+            
+            if char == '\\':
+                escape_next = True
+                i += 1
+                continue
+            
+            # Handle string literals
+            if not in_string and char in ['"', "'"]:
+                # Check for triple quotes
+                if i + 2 < len(line) and line[i:i+3] == char * 3:
+                    # Find end of triple quote
+                    end_pos = line.find(char * 3, i + 3)
+                    if end_pos != -1:
+                        i = end_pos + 3
+                        continue
+                    else:
+                        # Unclosed triple quote, treat as string start
+                        in_string = True
+                        string_char = char
+                        i += 3
+                        continue
+                
+                # Check for raw strings
+                if i > 0 and line[i-1].lower() in ['r', 'f', 'b', 'u']:
+                    in_string = True
+                    string_char = char
+                elif i > 1 and line[i-2:i].lower() in ['rf', 'fr', 'rb', 'br']:
+                    in_string = True
+                    string_char = char
+                else:
+                    in_string = True
+                    string_char = char
+            
+            elif in_string and char == string_char:
+                in_string = False
+                string_char = None
+            
+            # Found potential comment
+            elif not in_string and char == '#':
+                # Additional checks to avoid false positives
+                # Skip if it's part of a hex color or similar pattern
+                if i > 0 and line[i-1].isalnum():
+                    i += 1
+                    continue
+                
+                # Skip if followed by common non-comment patterns
+                remaining = line[i+1:].strip()
+                if remaining and remaining[0].isdigit():
+                    # Could be hex color like #FF0000
+                    if all(c in '0123456789ABCDEFabcdef' for c in remaining[:6]):
+                        i += 1
+                        continue
+                
+                # This is a real comment
+                return line[:i].rstrip(), 1
+            
+            i += 1
+        
+        return line, 0
+    
     def get_string_patterns(self) -> List[str]:
-        return [
-            r'""".*?"""',  # Triple double quotes
-            r"'''.*?'''",  # Triple single quotes
-            r'"(?:[^"\\]|\\.)*"',  # Double quoted strings
-            r"'(?:[^'\\]|\\.)*'",  # Single quoted strings
-            r'r"(?:[^"\\]|\\.)*"',  # Raw double quoted
-            r"r'(?:[^'\\]|\\.)*'",  # Raw single quoted
-            r'f"(?:[^"\\]|\\.)*"',  # F-string double
-            r"f'(?:[^'\\]|\\.)*'",  # F-string single
-        ]
+        return []
     
     def get_comment_patterns(self) -> List[str]:
-        return [r'#.*$']
+        return []
     
     def get_multiline_comment_patterns(self) -> List[Tuple[str, str]]:
-        return [
-            (r'"""', r'"""'),
-            (r"'''", r"'''")
-        ]
+        return []

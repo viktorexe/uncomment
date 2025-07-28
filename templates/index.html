@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UnComment - Advanced Code Comment Remover</title>
+    <title>UnComment - Code Comment Remover</title>
     <link rel="stylesheet" href="/static/css/style.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="container">
@@ -14,79 +13,77 @@
             <p class="subtitle">Advanced Code Comment Remover - Supporting 17+ Languages</p>
         </header>
 
-        <main class="main-content">
-            <div class="controls">
-                <div class="language-selector">
-                    <label for="language">Language:</label>
-                    <select id="language">
-                        <option value="">Auto-detect</option>
-                        <option value="python">Python</option>
-                        <option value="javascript">JavaScript</option>
-                        <option value="typescript">TypeScript</option>
-                        <option value="java">Java</option>
-                        <option value="cpp">C++</option>
-                        <option value="c">C</option>
-                        <option value="csharp">C#</option>
-                        <option value="go">Go</option>
-                        <option value="rust">Rust</option>
-                        <option value="php">PHP</option>
-                        <option value="ruby">Ruby</option>
-                        <option value="swift">Swift</option>
-                        <option value="kotlin">Kotlin</option>
-                        <option value="scala">Scala</option>
-                        <option value="html">HTML</option>
-                        <option value="css">CSS</option>
-                        <option value="sql">SQL</option>
-                    </select>
-                </div>
-                
-                <div class="action-buttons">
-                    <button id="processBtn" class="btn btn-primary">Remove Comments</button>
-                    <button id="clearBtn" class="btn btn-secondary">Clear</button>
-                    <button id="copyBtn" class="btn btn-success">Copy Result</button>
-                </div>
+        <div class="controls">
+            <div class="language-selector">
+                <label for="language">Language:</label>
+                <select id="language">
+                    <option value="">Auto-detect</option>
+                    <option value="python">Python</option>
+                    <option value="javascript">JavaScript</option>
+                    <option value="typescript">TypeScript</option>
+                    <option value="java">Java</option>
+                    <option value="cpp">C++</option>
+                    <option value="c">C</option>
+                    <option value="csharp">C#</option>
+                    <option value="go">Go</option>
+                    <option value="rust">Rust</option>
+                    <option value="php">PHP</option>
+                    <option value="ruby">Ruby</option>
+                    <option value="swift">Swift</option>
+                    <option value="kotlin">Kotlin</option>
+                    <option value="scala">Scala</option>
+                    <option value="html">HTML</option>
+                    <option value="css">CSS</option>
+                    <option value="sql">SQL</option>
+                </select>
             </div>
+            
+            <div class="action-buttons">
+                <button id="processBtn" class="btn btn-primary">Remove Comments</button>
+                <button id="clearBtn" class="btn">Clear</button>
+                <button id="copyBtn" class="btn">Copy Result</button>
+            </div>
+        </div>
 
-            <div class="editor-container">
-                <div class="editor-panel">
-                    <div class="panel-header">
-                        <h3>Input Code</h3>
-                        <div class="file-upload">
-                            <input type="file" id="fileInput" accept=".txt,.py,.js,.ts,.java,.cpp,.c,.cs,.go,.rs,.php,.rb,.swift,.kt,.scala,.html,.css,.sql">
-                            <label for="fileInput" class="btn btn-outline">Upload File</label>
-                        </div>
+        <div class="editor-container">
+            <div class="editor-panel">
+                <div class="panel-header">
+                    <h3>Input Code</h3>
+                    <div class="file-upload">
+                        <input type="file" id="fileInput" accept=".txt,.py,.js,.ts,.java,.cpp,.c,.cs,.go,.rs,.php,.rb,.swift,.kt,.scala,.html,.css,.sql">
+                        <label for="fileInput">Upload File</label>
                     </div>
-                    <textarea id="inputCode" placeholder="Paste your code here or upload a file..."></textarea>
                 </div>
-
-                <div class="editor-panel">
-                    <div class="panel-header">
-                        <h3>Output Code</h3>
-                        <div class="stats" id="stats"></div>
-                    </div>
-                    <pre id="outputCode"><code></code></pre>
-                </div>
+                <textarea id="inputCode" placeholder="Paste your code here or upload a file..."></textarea>
             </div>
 
-            <div class="features">
-                <div class="feature">
-                    <h4>🚀 High Performance</h4>
-                    <p>Handles files with 2000+ lines efficiently</p>
+            <div class="editor-panel">
+                <div class="panel-header">
+                    <h3>Output Code</h3>
+                    <div class="stats" id="stats"></div>
                 </div>
-                <div class="feature">
-                    <h4>🎯 Precision</h4>
-                    <p>Preserves strings and prevents false positives</p>
-                </div>
-                <div class="feature">
-                    <h4>🌐 Multi-Language</h4>
-                    <p>Supports 17+ programming languages</p>
-                </div>
-                <div class="feature">
-                    <h4>🔍 Auto-Detection</h4>
-                    <p>Automatically detects programming language</p>
-                </div>
+                <textarea id="outputCode" readonly></textarea>
             </div>
-        </main>
+        </div>
+
+        <div class="features">
+            <div class="feature">
+                <h4>High Performance</h4>
+                <p>Handles files with 2000+ lines efficiently</p>
+            </div>
+            <div class="feature">
+                <h4>Precision</h4>
+                <p>Preserves strings and prevents false positives</p>
+            </div>
+            <div class="feature">
+                <h4>Multi-Language</h4>
+                <p>Supports 17+ programming languages</p>
+            </div>
+            <div class="feature">
+                <h4>Auto-Detection</h4>
+                <p>Automatically detects programming language</p>
+            </div>
+        </div>
 
         <footer class="footer">
             <p>&copy; 2024 UnComment - Advanced Code Processing Tool</p>
@@ -98,8 +95,6 @@
         <p>Processing your code...</p>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
     <script src="/static/js/app.js"></script>
 </body>
 </html>

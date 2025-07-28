@@ -23,14 +23,14 @@ class UnCommentApp {
         this.copyBtn.addEventListener('click', () => this.copyResult());
         this.fileInput.addEventListener('change', (e) => this.handleFileUpload(e));
         
-        // Auto-process on Ctrl+Enter
+
         this.inputCode.addEventListener('keydown', (e) => {
             if (e.ctrlKey && e.key === 'Enter') {
                 this.processCode();
             }
         });
 
-        // Auto-resize textarea
+
         this.inputCode.addEventListener('input', () => this.autoResize());
     }
 
@@ -39,12 +39,12 @@ class UnCommentApp {
             const response = await fetch('/api/languages');
             const languages = await response.json();
             
-            // Clear existing options except auto-detect
+
             const autoDetect = this.languageSelect.querySelector('option[value=""]');
             this.languageSelect.innerHTML = '';
             this.languageSelect.appendChild(autoDetect);
             
-            // Add supported languages
+
             languages.forEach(lang => {
                 const option = document.createElement('option');
                 option.value = lang;
@@ -119,17 +119,9 @@ class UnCommentApp {
     }
 
     displayResult(result) {
-        const codeElement = this.outputCode.querySelector('code');
-        codeElement.textContent = result.processed_code;
+        this.outputCode.value = result.processed_code;
         
-        // Apply syntax highlighting
-        if (window.Prism) {
-            const language = this.getPrismLanguage(result.detected_language);
-            codeElement.className = `language-${language}`;
-            Prism.highlightElement(codeElement);
-        }
 
-        // Update stats
         this.updateStats(result.stats, result.detected_language);
     }
 
@@ -157,32 +149,22 @@ class UnCommentApp {
     }
 
     updateStats(stats, detectedLanguage) {
-        const formatBytes = (bytes) => {
-            if (bytes === 0) return '0 B';
-            const k = 1024;
-            const sizes = ['B', 'KB', 'MB'];
-            const i = Math.floor(Math.log(bytes) / Math.log(k));
-            return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
-        };
-
         this.stats.innerHTML = `
             <span>Language: ${this.formatLanguageName(detectedLanguage)}</span>
             <span>Comments Removed: ${stats.removed}</span>
-            <span>Size: ${formatBytes(stats.original_size)} → ${formatBytes(stats.cleaned_size)}</span>
-            <span>Compression: ${stats.compression_ratio}%</span>
         `;
     }
 
     clearCode() {
         this.inputCode.value = '';
-        this.outputCode.querySelector('code').textContent = '';
+        this.outputCode.value = '';
         this.stats.innerHTML = '';
         this.languageSelect.value = '';
         this.showNotification('Code cleared', 'info');
     }
 
     async copyResult() {
-        const code = this.outputCode.querySelector('code').textContent;
+        const code = this.outputCode.value;
         if (!code) {
             this.showNotification('No code to copy', 'warning');
             return;
@@ -192,13 +174,8 @@ class UnCommentApp {
             await navigator.clipboard.writeText(code);
             this.showNotification('Code copied to clipboard!', 'success');
         } catch (error) {
-            // Fallback for older browsers
-            const textArea = document.createElement('textarea');
-            textArea.value = code;
-            document.body.appendChild(textArea);
-            textArea.select();
+            this.outputCode.select();
             document.execCommand('copy');
-            document.body.removeChild(textArea);
             this.showNotification('Code copied to clipboard!', 'success');
         }
     }
@@ -207,7 +184,7 @@ class UnCommentApp {
         const file = event.target.files[0];
         if (!file) return;
 
-        // Check file size (max 5MB)
+
         if (file.size > 5 * 1024 * 1024) {
             this.showNotification('File too large. Maximum size is 5MB.', 'error');
             return;
@@ -266,12 +243,12 @@ class UnCommentApp {
     }
 
     showNotification(message, type = 'info') {
-        // Create notification element
+
         const notification = document.createElement('div');
         notification.className = `notification notification-${type}`;
         notification.textContent = message;
         
-        // Style the notification
+
         Object.assign(notification.style, {
             position: 'fixed',
             top: '20px',
@@ -286,7 +263,7 @@ class UnCommentApp {
             maxWidth: '300px'
         });
 
-        // Set background color based on type
+
         const colors = {
             success: '#059669',
             error: '#dc2626',
@@ -297,12 +274,12 @@ class UnCommentApp {
 
         document.body.appendChild(notification);
 
-        // Animate in
+
         setTimeout(() => {
             notification.style.transform = 'translateX(0)';
         }, 100);
 
-        // Remove after 3 seconds
+
         setTimeout(() => {
             notification.style.transform = 'translateX(100%)';
             setTimeout(() => {
@@ -314,7 +291,7 @@ class UnCommentApp {
     }
 }
 
-// Initialize app when DOM is loaded
+
 document.addEventListener('DOMContentLoaded', () => {
     new UnCommentApp();
 });

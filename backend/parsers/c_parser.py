@@ -1,15 +1,5 @@
-from .base_parser import BaseParser
-from typing import List, Tuple
+from .cpp_parser import CppParser
 
-class CParser(BaseParser):
-    def get_string_patterns(self) -> List[str]:
-        return [
-            r'"(?:[^"\\]|\\.)*"',  # Double quoted strings
-            r"'(?:[^'\\]|\\.)*'",  # Single quoted chars
-        ]
-    
-    def get_comment_patterns(self) -> List[str]:
-        return [r'//.*$']
-    
-    def get_multiline_comment_patterns(self) -> List[Tuple[str, str]]:
-        return [(r'/\*', r'\*/')]
+class CParser(CppParser):
+    """C uses same comment syntax as C++"""
+    pass
