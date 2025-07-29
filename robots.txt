@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://uncomment.vercel.app/sitemap.xml

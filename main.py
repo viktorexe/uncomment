@@ -51,5 +51,20 @@ def process_code():
 def get_supported_languages():
     return jsonify(comment_processor.get_supported_languages())
 
+@app.route('/sitemap.xml')
+def sitemap():
+    from flask import send_from_directory
+    return send_from_directory('.', 'sitemap.xml')
+
+@app.route('/robots.txt')
+def robots():
+    from flask import send_from_directory
+    return send_from_directory('.', 'robots.txt')
+
+@app.route('/logo.png')
+def logo():
+    from flask import send_from_directory
+    return send_from_directory('.', 'logo.png')
+
 if __name__ == '__main__':
     app.run(debug=True)
