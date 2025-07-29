@@ -15,10 +15,7 @@
       "src": "/robots.txt",
       "dest": "robots.txt"
     },
-    {
-      "src": "/logo.png",
-      "dest": "logo.png"
-    },
+
     {
       "src": "/api/(.*)",
       "dest": "main.py"

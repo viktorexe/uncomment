@@ -61,10 +61,7 @@ def robots():
     from flask import send_from_directory
     return send_from_directory('.', 'robots.txt')
 
-@app.route('/logo.png')
-def logo():
-    from flask import send_from_directory
-    return send_from_directory('.', 'logo.png')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
